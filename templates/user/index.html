@@ -1,0 +1,108 @@
+{% load static %}
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'Reset.css' %}">
+    <link rel="icon" href="../media/log/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>{{ title }}</title>
+</head>
+<body>
+<!--导航条-->
+<div class="banner">
+    <div class="logo">
+        <div class="logo-icon">ZXT</div>
+        <div class="logo-text">中香田</div>
+    </div>
+    <nav class="nav">
+        <a href="/index" class="nav-item">首页</a>
+        <a href="" class="nav-item">简介</a>
+        <a href="#" class="nav-item">企业文化</a>
+        <a href="#" class="nav-item">新闻</a>
+        <a href="/travel_image" class="nav-item">旅养</a>
+        <a href="#" class="nav-item">产品介绍</a>
+        <a href="/upload_image" class="nav-item">图片</a>
+    </nav>
+    <div class="search-bar">
+        <input type="text" id="search" class="search-input" placeholder="搜索">
+    </div>
+    <div class="login" style="color:white;margin-left:20px">
+        {% if username %}
+            <span>欢迎：<a href="/user_center">{{ username }}</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span><a style="text-decoration: none;color:inherit;" href="/logout">退出</a></span>
+        {% else %}
+            <span><a style="text-decoration: none;color:inherit;margin-left: 86px;" href="/login">登录</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span><a style="text-decoration: none;color:inherit;" href="/register">注册</a></span>
+        {% endif%}
+    </div>
+</div>
+<div class="container">
+    <div class="main-content">
+        {% for article in articles %}
+            <div class="article-list">
+                <a href="/detail/{{article.id}}" class="article-title">{{ article.title }}</a>
+{#                <div class="article-meta">{{ article.publish_time }}</div>#}
+                <div class="article-excerpt">
+                   {{ article.description }}
+                </div>
+            </div>
+         {% endfor %}
+    </div>
+</div>
+<div class="images-section">
+    {% for image in image %}
+        <div class="image-wrap" style="display: inline-block;">
+            <a href="/Images/{{ image.id }}" class="image-title">{{ image.title }}</a>
+            <img src="{{ image.image.url }}" alt="{{ image.title }}">
+        </div>
+        <small>{{ image.uploaded_at }}</small>
+    {% endfor %}
+</div>
+<div class="travel">
+    {% for travel in travels %}
+        <div class="travel-wrap" style="display: inline-block;">
+            <a href="/travel/{{travel.id}}" class="travel-title">{{ travel.title }}</a>
+            <img src="{{ travel.image.url }}" alt="">
+            <div class="travel-meta">{{ travel.publish_time }}</div>
+        </div>
+    {% endfor %}
+</div>
+<div class="video">
+    {% for video in video %}
+        <div class="video-wrap" style="display: inline-block;">
+            <a href="/Videos/{{video.id}}" class="video-title">{{ video.title }}</a>
+            <video controls autoplay muted loop>
+                <source src="{{ video.video_file.url }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="video-meta">{{ video.uploaded_at }}</div>
+{#            <li>No videos available.</li>#}
+        </div>
+        {% empty %}
+    {% endfor %}
+</div>
+</body>
+</html>
+<script>
+$(document).ready(function() {
+    $('#search').on('keydown', function(e) {
+            // 获取按下的键的键码
+        var key = e.which || e.keyCode;
+
+            // 检查是否按下的是 Enter 键（键码 13）
+        if (key === 13) {
+            e.preventDefault(); // 阻止默认行为（如果需要）
+            // 在这里编写你希望在按下 Enter 时执行的代码
+            console.log('Enter 键被按下！');
+                // 获取输入框的内容
+            let key_word = $("#search").val()
+            location.href = "/search?q=" + key_word
+        }
+    });
+});
+</script>

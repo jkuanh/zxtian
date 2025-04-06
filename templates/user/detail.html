@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/css/Reset.css' %}">
+    <link rel="stylesheet" href="{% static '/css/detail.css'%}">
+    <link rel="icon" href="../media/log/favicon.ico">
+    <title>{{ article.title }}</title>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部区域 -->
+        <header class="header">
+            <h1 class="title glow">{{article.title}}</h1>
+            <div class="meta">
+                <span>{{ article.publish_time }}</span>
+                <span>作者：{{ article.author }}</span>
+                <span>阅读：{{ article.views }}</span>
+            </div>
+        </header>
+
+        <!-- 封面图片 -->
+        <div class="cover-image">
+            <img src="{% static '/log.ico' %}" alt="文章封面">
+        </div>
+        <!-- 文章内容 -->
+        <main class="content">
+            {{article.content | safe}}
+        </main>
+
+        <!-- 返回按钮 -->
+        <div class="back-button">
+            <a href="#" onclick="history.back()">返回</a>
+        </div>
+    </div>
+
+</body>
+</html>

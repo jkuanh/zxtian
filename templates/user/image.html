@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../media/log//favicon.ico">
+    <link rel="stylesheet" href="{% static 'css/Reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/image.css' %}">
+    <title>{{ image.title }}</title>
+</head>
+<body>
+    <div class="container">
+        <h1 id="imageTitle">{{ image.title }}</h1>
+        <div class="meta">
+            <span>{{ image.publish_time }}</span>
+            <span>阅读：{{ image.views }}</span>
+        </div>
+        <!-- 封面图片 -->
+        <div class="travel-image">
+            <img src="{{ image.image.url}}" alt="{{image.title}}">
+        </div>
+        <!-- 返回按钮 -->
+        <div class="back-button">
+            <a href="#" onclick="history.back()">返回</a>
+        </div>
+    </div>
+</body>
+</html>

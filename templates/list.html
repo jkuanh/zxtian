@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>显示图片</title>
+    <link rel="stylesheet" href="{% static 'css/image.css' %}">  <!-- 如果有 CSS -->
+</head>
+<body>
+    <div class="container">
+        <h1>显示图片</h1>
+        <img id="mainImage" src="{{ image_url }}" alt="展示图片" />  <!-- 使用模板变量 -->
+        <button id="changeTitleButton">更改标题</button>
+    </div>
+    <script src="{% static 'script.js' %}"></script>  <!-- 如果有 JS -->
+</body>
+</html>

@@ -1,0 +1,33 @@
+{% load static %}
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'user/video.css' %}">
+    <link rel="icon" href="../media/favicon.ico">
+    <title>{{ video.title }}</title>
+</head>
+<body>
+<div class="video-container">
+    <h2>{{ video.title }}</h2>
+    <!-- 视频播放器 -->
+    <video controls autoplay muted loop width="80%">
+        <source src="{{ video.video_file.url }}" type="video/mp4">
+        您的浏览器不支持视频标签
+    </video>
+    <div class="back-button">
+        <a href="#" onclick="history.back()">返回</a>
+    </div>
+</div>
+<div class="description">
+    {{ video.description | safe}}
+    <div class="meta">
+        <span>{{ video.uploaded_at }}</span>
+    </div>
+</div>
+
+</body>
+</html>

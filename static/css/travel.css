@@ -1,0 +1,80 @@
+/* 头部样式 */
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.meta-info {
+    font-size: 0.9em;
+    color: #7f8c8d;
+}
+.travel-image{
+    width: 60%;
+    height: 50%;
+    text-align: center;
+}
+.travel-image>img{
+    width: 60%;
+    height: 50%;
+    /*margin-left: 100px;*/
+    margin-top: 20px;
+    text-align: center;
+}
+
+.meta-info .author {
+    margin-right: 10px;
+}
+/* 文章内容样式 */
+.description {
+    font-size: 1.1em;
+}
+
+.description h2 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #34495e;
+}
+
+.description p {
+    /*text-align: center;*/
+    text-align: left;
+    margin-left: 100px;
+    font-size: 20px;
+    margin-top: 25px;
+    color: #ff3333;
+}
+
+.description a {
+    color: #2980b9;
+    text-decoration: none;
+}
+
+.description a:hover {
+    text-decoration: underline;
+}
+
+/* 返回按钮样式 */
+.back-button {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.back-button a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.back-button a:hover {
+    background-color: #2980b9;
+}

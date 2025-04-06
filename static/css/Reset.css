@@ -1,0 +1,29 @@
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0px;
+}
+
+ol,ul,li{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+
+img{
+    border: none;
+}
+
+a{
+    /*清除默认自带下划线*/
+    text-decoration: none;
+}
+button,input,textarea{
+    outline: none;
+    border: 1px solid #ccc;
+}

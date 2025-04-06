@@ -1,0 +1,16 @@
+<!-- templates/videos/video_list.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="video-grid">
+  {% for video in videos %}
+  <div class="video-card">
+    <a href="{% url 'video-detail' video.slug %}">
+      <img src="{{ video.thumbnail.url }}" alt="{{ video.title }}">
+      <h3>{{ video.title }}</h3>
+      <p>{{ video.duration|time:"H:i:s" }}</p>
+    </a>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

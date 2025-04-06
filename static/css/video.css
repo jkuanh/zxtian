@@ -1,0 +1,12 @@
+.video-container {
+    text-align: center;
+     width: 80%;
+    height: 80%;
+}
+.video-container>h2{
+    color: #e92e0e;
+}
+.description {
+    text-indent: 20px;
+    margin-left: 156px;
+}

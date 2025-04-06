@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/travel_image.css'%}">
+    <link rel="stylesheet" href="{% static 'css/Reset.css' %}">
+    <link rel="icon" href="../media/log/favicon.ico">
+    <title>{{ title }}</title>
+</head>
+<body>
+<div class="banner">
+    <div class="logon">
+        <div class="logon-icon"><img src="../media/log/log.ico" alt=""></div>
+        <div class="logon-text">中香田</div>
+    </div>
+    <nav class="nav">
+        <a href="/index" class="nav-item">首页</a>
+        <a href="" class="nav-item">简介</a>
+        <a href="#" class="nav-item">企业文化</a>
+        <a href="#" class="nav-item">新闻</a>
+        <a href="/travel_image" class="nav-item">旅养</a>
+        <a href="#" class="nav-item">产品介绍</a>
+        <a href="/upload_image" class="nav-item">图片</a>
+    </nav>
+
+    <div class="search-bar">
+        <input type="text" id="search" class="search-input" placeholder="搜索">
+    </div>
+    <div class="login" style="color:white;margin-left:20px">
+        {% if username %}
+            <span>欢迎：<a href="/user_center">{{ username }}</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span><a style="text-decoration: none;color:inherit;" href="/logout">退出</a></span>
+        {% else %}
+            <span><a style="text-decoration: none;color:inherit;margin-left: 86px;" href="/login">登录</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span><a style="text-decoration: none;color:inherit;" href="/register">注册</a></span>
+        {% endif%}
+    </div>
+</div>
+<div class="travel">
+    <div class="travel-section">
+        {% for travel in travel %}
+        <div class="travel-wrap" style="display: inline-block;">
+            <a href="/traveled/{{ travel.id }}" class="travel-title">{{ travel.title }}</a>
+            <img src="{{ travel.image.url }}" alt="">
+            <div class="travel-meta">{{ travel.publish_time }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>

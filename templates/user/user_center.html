@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户中心</title>
+    <link rel="icon" href="../media/log/favicon.ico">
+    <link rel="stylesheet" href="{% static 'css/user_center.css'%}">
+    <link href="https://unpkg.com/@wangeditor/editor@latest/dist/css/style.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <style>
+        #editor—wrapper {
+            border: 1px solid #ccc;
+            z-index: 100; /* 按需定义 */
+        }
+
+        #toolbar-container {
+            border-bottom: 1px solid #ccc;
+        }
+
+        #editor-container {
+            height: 500px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>欢迎来到用户中心</h1>
+
+    <!-- 用户信息面板 -->
+    <section class="dashboard">
+        <h2>数据面板</h2>
+        <div class="stats">
+            <div class="stat">
+                <h3>总文章数</h3>
+                <p id="total-articles">{{ article_count }}</p>
+            </div>
+            <div class="stat">
+                <h3>总阅读量</h3>
+                <p id="total-views">{{ total_views }}</p>
+            </div>
+        </div>
+        <h3>最近发布的文章</h3>
+        <ul id="recent-posts">
+            <!-- 最近发布的文章列表 -->
+        </ul>
+    </section>
+
+    <!-- 添加文章表单 -->
+    <section class="add-article">
+        <h2>添加新文章</h2>
+        <form id="my_form"  id="article-form">
+            <label for="title">标题:</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="description">摘要:</label>
+            <textarea id="description" name="description" rows="5" required></textarea>
+            <label >文章内容:</label>
+            <div id="editor—wrapper">
+                <div id="toolbar-container"><!-- 工具栏 --></div>
+                <div id="editor-container"><!-- 编辑器 --></div>
+            </div>
+
+            <button type="submit">发布文章</button>
+        </form>
+    </section>
+
+    <!-- 文章列表 -->
+    <section class="articles">
+        <h2>所有文章</h2>
+        <ul id="articles-list">
+            <!-- 文章列表 -->
+            {% for article in articles %}
+            <li><a href="/detail/{{article.id}}">{{article.title}}</a></li>
+            {% endfor %}
+        </ul>
+    </section>
+</div>
+
+<script src="{% static 'js/user_center.js'%}"></script>
+<script src="https://unpkg.com/@wangeditor/editor@latest/dist/index.js"></script>
+<script>
+    const {createEditor, createToolbar} = window.wangEditor
+
+    let html = ""
+    const editorConfig = {
+        placeholder: 'Type here...',
+        onChange(editor) {
+            html = editor.getHtml()
+
+        },
+    }
+
+    const editor = createEditor({
+        selector: '#editor-container',
+        html: '<p><br></p>',
+        config: editorConfig,
+        mode: 'default', // or 'simple'
+    })
+
+    const toolbarConfig = {}
+
+    const toolbar = createToolbar({
+        editor,
+        selector: '#toolbar-container',
+        config: toolbarConfig,
+        mode: 'default', // or 'simple'
+    })
+
+
+    $(document).ready(function(){
+
+        $("#my_form").on("submit", function(event){
+            event.preventDefault();  // 阻止默认提交
+
+            // 获取表单数据
+            let title = $("#title").val()  // 获取标题
+            let description = $("#description").val()  // 获取摘要
+
+            $.ajax({
+                url: "/submit_article",
+                type: "POST",
+                data: {
+                    title: title,
+                    description: description,
+                    content:html
+                },
+                success: function(response){
+                    if (response.code == 0){
+                        alert(response.msg)
+                        let a_id  = response.a_id
+                        // 更新页面
+                        let li = "<li><a href='/detail/"+ a_id +"'>" + title + "</a></li>"
+                        $("#articles-list").append(li)
+
+                    } else{
+                        alert(response.msg)
+                    }
+                },
+                error:function(){
+                    alert("提交失败，请重试!")
+                }
+            })
+        })
+
+    })
+
+</script>
+</body>
+</html>

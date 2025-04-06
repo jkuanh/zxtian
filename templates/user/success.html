@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../media/log/favicon.ioc">
+    <link rel="stylesheet" href="{% static 'css/success.css' %}">
+    <title>成功提示</title>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-icon">✔️</div>
+        <div class="success-message">{{messsage}}</div>
+        <a href="{{ return_url}}" class="return-button">{{ return }}</a>
+        <div class="countdown" id="countdown">3</div>
+    </div>
+<script>
+        // 倒计时初始时间（秒）
+        let seconds = 3;
+        const countdownElement = document.getElementById('countdown');
+
+        // 更新倒计时显示
+        function updateCountdown() {
+            countdownElement.textContent = seconds;
+            seconds--;
+
+            if (seconds < 0) {
+                clearInterval(timer);
+                // 倒计时结束后跳转到首页
+                window.location.href = "index"; // 修改为你的首页地址
+            }
+        }
+
+        // 每秒更新一次
+        const timer = setInterval(updateCountdown, 1000);
+        updateCountdown(); // 立即执行第一次更新
+    </script>
+</body>
+</html>
