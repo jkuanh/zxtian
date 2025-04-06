@@ -1,14 +1,10 @@
 import hashlib
 import random
-from video.models import Video
 from django.conf import settings
 from django.core.mail import send_mail
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
-from article.models import Article
-from travel.models import Travel
-from .models import User
-from image.models import Image
+from article.models import Article, Image, Travel, Video, User
 import os
 
 
@@ -33,6 +29,43 @@ def index(request):
     if username:
         context["username"] = username
     response = render(request, 'user/index.html', context=context)
+    return response
+
+
+def Images(request):
+    """
+    首页
+    :param request:
+    :return:
+    """
+    username = request.session.get("username", None)
+    image = Image.objects.all()
+    context = {
+        'image': image,
+        'title': '中香田'
+    }
+    if username:
+        context["username"] = username
+    response = render(request, 'upload_image.html', context=context)
+    return response
+
+
+def traveled(request):
+    """
+    首页
+    :param request:
+    :return:
+    """
+    username = request.session.get("username", None)
+    traver = Travel.objects.all()
+    context = {
+        'travel': traver,
+        'title': '中香田'
+    }
+    if username:
+        context["username"] = username
+    response = render(request, 'travel_image.html', context=context)
+    print(response)
     return response
 
 
@@ -64,22 +97,40 @@ def travels(request, a_id):
     return HttpResponse(travel_view)
 
 
-def Images(request, a_id):
-    image = Image.objects.get(id=a_id)
-    image.views += 1
-    image.save()  # 更新文章的浏览量
+def Image_list(request, a_id):
+    images = Image.objects.get(id=a_id)
+    images.views += 1
+    images.save()  # 更新文章的浏览量
     form = Image()  # 初始化表单（假设直接使用模型）
     context = {
-        'image': image,
+        'image': images,
         'form': form
     }
     if request.method == 'POST':
-        form = image(request.POST, request.FILES)
+        form = images(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return
     image_view = render(request, 'user/image.html', context=context)
     return HttpResponse(image_view)
+
+
+def Videos(request, a_id):
+    video = Video.objects.get(id=a_id)
+    # video.views += 1
+    video.save()  # 更新文章的浏览量
+    form = Video()  # 初始化表单（假设直接使用模型）
+    context = {
+        'video': video,
+        'form': form
+    }
+    if request.method == 'POST':
+        form = video(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return
+    video_view = render(request, 'video/video.html', context=context)
+    return HttpResponse(video_view)
 
 
 def register(request):

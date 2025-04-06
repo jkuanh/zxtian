@@ -16,16 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from video.views import Videos
-from travel.views import traveled
-from travel.models import Travel
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("home.urls")),
-    path('', include('image.urls')),
-    path('Videos/<int:a_id>', Videos),
-    path('travel_image/', traveled),
-    path('travel_list/<int:a_id>', Travel),
 ]
