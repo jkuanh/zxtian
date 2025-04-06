@@ -5,14 +5,15 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{% static 'css/travel_image.css'%}">
     <link rel="stylesheet" href="{% static 'css/Reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/indexs.css' %}">
     <link rel="icon" href="../media/log/favicon.ico">
     <title>{{ title }}</title>
 </head>
 <body>
 <div class="banner">
-    <div class="logon">
-        <div class="logon-icon"><img src="../media/log/log.ico" alt=""></div>
-        <div class="logon-text">中香田</div>
+    <div class="logo">
+        <div class="logo-icon">ZXT</div>
+        <div class="logo-text">中香田</div>
     </div>
     <nav class="nav">
         <a href="/index" class="nav-item">首页</a>
@@ -27,7 +28,7 @@
     <div class="search-bar">
         <input type="text" id="search" class="search-input" placeholder="搜索">
     </div>
-    <div class="login" style="color:white;margin-left:20px">
+    <div class="login" style="color:white;margin-left:10px">
         {% if username %}
             <span>欢迎：<a href="/user_center">{{ username }}</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
             <span><a style="text-decoration: none;color:inherit;" href="/logout">退出</a></span>
